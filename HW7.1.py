@@ -1,17 +1,33 @@
-user_input = input()
+# Напишите функцию print_operation_table(operation, num_rows=6, num_columns=6), которая принимает в качестве аргумента функцию,
+# вычисляющую элемент по номеру строки и столбца, т.е. функцию двух аргументов. Аргументы num_rows и num_columns указывают
+# число строк и столбцов таблицы, которые должны быть распечатаны. Нумерация строк и столбцов идет с единицы.
+# Примеры/Тесты:
+# print_operation_table(lambda x,y: x**y,4,4)
+# 1   1   1   1
+# 2   4   8  16
+# 3   9  27  81
+# 4  16  64 256
+# print_operation_table(lambda x,y: x*y)
+# 1   2   3   4   5   6
+# 2   4   6   8  10  12
+# 3   6   9  12  15  18
+# 4   8  12  16  20  24
+# 5  10  15  20  25  30
+# 6  12  18  24  30  36
 
-def rhythm(str):
-    str = str.split()
-    lst_count = []
-    for word in str:
-        summ_words = 0
-        for i in word:
-            if i in 'аеёиоуыэюя':
-                summ_words += 1
-        lst_count.append(summ_words)
-    return len(lst_count) == lst_count.count(lst_count[0])
+from math import log10
 
-if rhythm(user_input):
-    print(True)
-else:
-    print(False)
+def print_operation_table(operation, num_rows=6, num_columns=6):
+    if operation(1,1)==2:
+        return 1
+
+    columns_size = int(log10(operation(num_rows, num_columns)))+1
+
+    for row in range(1, num_rows + 1):
+        for column in range(1, num_columns + 1):
+            if operation(1,1)==2:
+                column=column-1
+            print('{:{}}'.format(operation(row,column), columns_size), end='\t')
+        print()
+
+print_operation_table(lambda x, y: x * y)
